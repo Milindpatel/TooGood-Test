@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-center p-5">
+  <form [formGroup]="testSearchForm" class="col-8">
+    <div class="d-flex flex-column">
+      <div class="form-group">
+        <h5>Test</h5>
+        <div class="text-area-wrapper p-2 rounded">
+          <div class="m-1 d-inline-block" *ngFor="let testInfo of selectedTestsInfo;let index = index">
+            <span>{{testInfo.extraText}}</span>
+            <span class="text-secondary">@</span><a href="#">{{ testInfo.name }}</a>
+          </div>
+          <input placeholder="" type="text" #controlRef formControlName="testSearch"
+            (keyup)="onKeyUp()" (keydown.arrowdown)="moveDown($event)" (keyup.backspace)="clearSelection($event)">
+          <!-- <textarea #controlRef
+                class="col border-none"
+                placeholder="Start search from @" 
+                formControlName="testSearch" 
+                rows="3" 
+                (keyup)="onKeyUp()"
+                (keydown.arrowdown)="moveDown($event)">
+              </textarea> -->
+        </div>
+      </div>
+      <ul class="list-group" #listWrapper>
+        <li class="list-group-item" tabindex="1" *ngFor="let testInfo of filteredTestList; let index = index"
+          (keydown.arrowdown)="moveDown($event)" (keyup.enter)="selectTest(testInfo)"
+          (keydown.arrowup)="moveUp($event)">
+          {{testInfo.name}}
+        </li>
+      </ul>
+    </div>
+  </form>
+</div>
